@@ -36,7 +36,28 @@ module Enumerable
         break unless confirm
       end
     else
-      array.my_each { |i| confirm = !(i == false || i.nil?) ? true : false }
+      array.my_each do |i|
+        confirm = !(i == false || i.nil?) ? true : false 
+        break unless confirm
+      end
+    end
+    confirm
+  end
+
+  #my_any?
+  def my_any?
+    confirm = false
+    array = self.to_a
+    if block_given?
+      array.my_each do |i|
+        confirm = yield i
+        break if confirm
+      end
+    else
+      array.my_each do |i|
+        confirm = !(i == false || i.nil?) ? true : false 
+        break if confirm
+      end
     end
     confirm
   end
