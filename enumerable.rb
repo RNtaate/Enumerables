@@ -25,4 +25,19 @@ module Enumerable
       self
     end
   end
+
+  # my_all
+  def my_all?
+    confirm = true
+    array = to_a
+    if block_given?
+      array.my_each do |i|
+        confirm = yield i
+        break unless confirm
+      end
+    else
+      array.my_each { |i| confirm = !(i == false || i.nil?) ? true : false }
+    end
+    confirm
+  end
 end
