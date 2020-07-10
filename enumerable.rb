@@ -2,14 +2,18 @@ module Enumerable
   # my_each method
   def my_each
     arr = to_a
-    arr.length.times { |i| yield arr[i] } if block_given?
+    return to_enum unless block_given?
+
+    arr.length.times { |i| yield arr[i] }
     self
   end
 
   # my_each_with_index
   def my_each_with_index
     array = to_a
-    array.length.times { |i| yield array[i], i } if block_given?
+    return to_enum unless block_given?
+
+    array.length.times { |i| yield array[i], i }
     self
   end
 
@@ -17,13 +21,11 @@ module Enumerable
   def my_select
     array = to_a
     final_array = []
-    if block_given?
-      array.my_each { |i| final_array << i if yield i }
-      final_array = final_array.to_h if is_a? Hash
-      final_array
-    else
-      self
-    end
+    return to_enum unless block_given?
+
+    array.my_each { |i| final_array << i if yield i }
+    final_array = final_array.to_h if is_a? Hash
+    final_array
   end
 
   # my_all
@@ -37,17 +39,17 @@ module Enumerable
       end
     else
       array.my_each do |i|
-        confirm = !(i == false || i.nil?) ? true : false 
+        confirm = !(i == false || i.nil?) ? true : false
         break unless confirm
       end
     end
     confirm
   end
 
-  #my_any?
+  # my_any?
   def my_any?
     confirm = false
-    array = self.to_a
+    array = to_a
     if block_given?
       array.my_each do |i|
         confirm = yield i
@@ -55,7 +57,7 @@ module Enumerable
       end
     else
       array.my_each do |i|
-        confirm = !(i == false || i.nil?) ? true : false 
+        confirm = !(i == false || i.nil?) ? true : false
         break if confirm
       end
     end
