@@ -63,4 +63,23 @@ module Enumerable
     end
     confirm
   end
+
+  # my_none?
+  def my_none?
+    arr = to_a
+    confirm = true
+    if block_given?
+      arr.my_each do |i|
+        confirm = !(yield i)
+        break unless confirm
+      end
+    else
+      arr.my_each do |i|
+        confirm = i == true || !i.nil? ? false : true
+        break unless confirm
+      end
+    end
+    confirm
+  end
 end
+
