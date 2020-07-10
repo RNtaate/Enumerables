@@ -100,4 +100,14 @@ module Enumerable
     end
     result
   end
+
+  # my_map
+  def my_map
+    array = to_a
+    result_arr = []
+    return to_enum unless block_given?
+
+    array.my_each { |i| result_arr << (yield i) }
+    result_arr
+  end
 end
