@@ -1,4 +1,6 @@
 module Enumerable
+  UNDEFINED = Object.new
+
   # my_each method
   def my_each
     arr = to_a
@@ -81,5 +83,21 @@ module Enumerable
     end
     confirm
   end
-end
 
+  # my_count
+  def my_count(number = UNDEFINED)
+    arr = to_a
+    result = 0
+    if number != UNDEFINED
+      puts 'enumerable.rb:111: warning: given block not used' if block_given?
+      arr.my_each { |i| result += 1 if number == i }
+
+    elsif block_given?
+      arr.my_each { |i| result += 1 if yield i }
+
+    else
+      result = arr.length
+    end
+    result
+  end
+end
