@@ -102,13 +102,20 @@ module Enumerable
   end
 
   # my_map
-  def my_map
+  def my_map(prc = UNDEFINED)
     array = to_a
-    result_arr = []
-    return to_enum unless block_given?
-
-    array.my_each { |i| result_arr << (yield i) }
-    result_arr
+    result = []
+  
+    if prc != UNDEFINED
+      array.my_each { |i| result << prc.call(i) }
+  
+    elsif block_given?
+      array.my_each { |i| result << (yield i) }
+  
+    else
+      result = to_enum
+    end
+    result
   end
 
   # my_inject
