@@ -44,7 +44,15 @@ Style/HashTransformKeys:
   Enabled: false
 Style/HashTransformValues:
   Enabled: false
+Metrics/ModuleLength:
+  Enabled: false
 Metrics/PerceivedComplexity:
   Enabled: false
 Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/BlockNesting:
+  Enabled: false
+Style/CaseEquality:
+  Enabled: false
+Style/IfInsideElse:
   Enabled: false

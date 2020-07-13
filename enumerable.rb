@@ -110,4 +110,32 @@ module Enumerable
     array.my_each { |i| result_arr << (yield i) }
     result_arr
   end
+
+  # my_inject
+  def my_inject(num = UNDEFINED, num_two = UNDEFINED)
+    arr = to_a
+    sum = 0
+
+    if num != UNDEFINED
+      if num_two != UNDEFINED
+        sum = num
+        arr.my_each { |i| sum = sum.send(num_two.to_s, i) }
+
+      else
+        if num.is_a? Symbol
+          sum = block_given? ? num : arr[0]
+          1.upto(arr.length - 1) { |i| sum = sum.send(num.to_s, arr[i]) }
+        else
+          sum = num
+          arr.my_each { |i| sum = yield sum, i }
+        end
+      end
+
+    else
+      sum = arr[0]
+      1.upto(arr.length - 1) { |i| sum = yield sum, arr[i] }
+    end
+    sum
+  end
 end
+
