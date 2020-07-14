@@ -31,18 +31,34 @@ module Enumerable
   end
 
   # my_all
-  def my_all?
+  def my_all?(arg = UNDEFINED)
     confirm = true
     array = to_a
-    if block_given?
-      array.my_each do |i|
-        confirm = yield i
-        break unless confirm
+    if arg != UNDEFINED
+      if (arg.is_a? Class)
+        array.my_each do |i|
+          confirm = i.class.ancestors.include? arg
+          break unless confirm
+        end
+
+      else
+          array.my_each do |i|  
+            confirm = (arg === i) 
+            break unless confirm
+          end
       end
+
     else
-      array.my_each do |i|
-        confirm = !(i == false || i.nil?) ? true : false
-        break unless confirm
+      if block_given?
+        array.my_each do |i|
+          confirm = yield i
+          break unless confirm
+        end
+      else
+        array.my_each do |i|
+          confirm = !(i == false || i.nil?) ? true : false
+          break unless confirm
+        end
       end
     end
     confirm
@@ -154,3 +170,13 @@ end
 def multiply_els(arg)
   arg.my_inject(:*)
 end
+
+
+arr = [2, 1, 23, 5]
+names = %w[Clayton Siby Roy Ntaate]
+expression = %w[t t t t t t t t t t]
+arr_of_e = [/t/, /t/, /t/, /t/]
+print arr.my_all?(5)
+puts " "
+
+# print expression.all?(/t/)
