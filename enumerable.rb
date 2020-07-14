@@ -35,17 +35,17 @@ module Enumerable
     confirm = true
     array = to_a
     if arg != UNDEFINED
-      if (arg.is_a? Class)
+      if arg.is_a? Class
         array.my_each do |i|
           confirm = i.class.ancestors.include? arg
           break unless confirm
         end
 
       else
-          array.my_each do |i|  
-            confirm = (arg === i) 
-            break unless confirm
-          end
+        array.my_each do |i|
+          confirm = (arg === i)
+          break unless confirm
+        end
       end
 
     else
@@ -56,7 +56,7 @@ module Enumerable
         end
       else
         array.my_each do |i|
-          confirm = !(i == false || i.nil?) ? true : false
+          confirm = !(i == false || i.nil?)
           break unless confirm
         end
       end
@@ -65,36 +65,66 @@ module Enumerable
   end
 
   # my_any?
-  def my_any?
+  def my_any?(arg = UNDEFINED)
     confirm = false
     array = to_a
-    if block_given?
-      array.my_each do |i|
-        confirm = yield i
-        break if confirm
+    if arg != UNDEFINED
+      if arg.is_a? Class
+        array.my_each do |i|
+          confirm = i.class.ancestors.include? arg
+          break if confirm
+        end
+
+      else
+        array.my_each do |i|
+          confirm = (arg === i)
+          break if confirm
+        end
       end
     else
-      array.my_each do |i|
-        confirm = !(i == false || i.nil?) ? true : false
-        break if confirm
+      if block_given?
+        array.my_each do |i|
+          confirm = yield i
+          break if confirm
+        end
+      else
+        array.my_each do |i|
+          confirm = !(i == false || i.nil?)
+          break if confirm
+        end
       end
     end
     confirm
   end
 
   # my_none?
-  def my_none?
+  def my_none?(arg = UNDEFINED)
     arr = to_a
     confirm = true
-    if block_given?
-      arr.my_each do |i|
-        confirm = !(yield i)
-        break unless confirm
+    if arg != UNDEFINED
+      if arg.is_a? Class
+        arr.my_each do |i|
+          confirm = !(i.class.ancestors.include? arg)
+          break unless confirm
+        end
+
+      else
+        arr.my_each do |i|
+          confirm = !(arg === i)
+          break unless confirm
+        end
       end
     else
-      arr.my_each do |i|
-        confirm = i == true || !i.nil? ? false : true
-        break unless confirm
+      if block_given?
+        arr.my_each do |i|
+          confirm = !(yield i)
+          break unless confirm
+        end
+      else
+        arr.my_each do |i|
+          confirm = i == true || !i.nil? ? false : true
+          break unless confirm
+        end
       end
     end
     confirm
@@ -170,13 +200,3 @@ end
 def multiply_els(arg)
   arg.my_inject(:*)
 end
-
-
-arr = [2, 1, 23, 5]
-names = %w[Clayton Siby Roy Ntaate]
-expression = %w[t t t t t t t t t t]
-arr_of_e = [/t/, /t/, /t/, /t/]
-print arr.my_all?(5)
-puts " "
-
-# print expression.all?(/t/)
