@@ -122,7 +122,7 @@ module Enumerable
         end
       else
         arr.my_each do |i|
-          confirm = i == true || !i.nil? ? false : true
+          confirm = (i == false || i.nil?)
           break unless confirm
         end
       end
