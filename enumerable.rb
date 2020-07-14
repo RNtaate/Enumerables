@@ -105,13 +105,13 @@ module Enumerable
   def my_map(prc = UNDEFINED)
     array = to_a
     result = []
-  
+
     if prc != UNDEFINED
       array.my_each { |i| result << prc.call(i) }
-  
+
     elsif block_given?
       array.my_each { |i| result << (yield i) }
-  
+
     else
       result = to_enum
     end
@@ -129,9 +129,14 @@ module Enumerable
         arr.my_each { |i| sum = sum.send(num_two.to_s, i) }
 
       else
-        if num.is_a? Symbol
+        if (num.is_a? Symbol) || (num.is_a? String)
           sum = block_given? ? num : arr[0]
-          1.upto(arr.length - 1) { |i| sum = sum.send(num.to_s, arr[i]) }
+          counter = block_given? ? 0 : 1
+
+          1.upto(arr.length - 1) { |i| sum = sum.send(num.to_s, arr[i]) } if num.is_a? Symbol
+
+          counter.upto(arr.length - 1) { |i| sum = sum.send(num.to_s, arr[i]) } if num.is_a? String
+
         else
           sum = num
           arr.my_each { |i| sum = yield sum, i }
