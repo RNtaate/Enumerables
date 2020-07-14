@@ -1,20 +1,14 @@
 # Enumerables
-This repository contains Ruby Enumerable methods.
-# Bubble sort
->This is a an array sorting project built with the Ruby language.
+>This project contains versions of the Ruby Enumerable methods built with the Ruby Language.
 
-The project is built to demonstrate the authors' understanding of basic Ruby language concepts such as loops, arrays, methods, and Conditional logic, among others.
-
-The project involves methods that take arrays as arguments and re-arrange them in ascending order using the Bubble-Sort Algorithm.
-
+The project demonstrates the authors' deeper understanding of Ruby concepts by building their own versions of Ruby's Enumerable methods which consist of **my_each, my_each_with_index, my_select, my_all?, my_any?, my_none?, my_count, my_map, my_inject, and multiply_els method to test my_inject**.
 
 ## Built With
 - Ruby
 - rubocop.yml
 
 ## Live Demo
-
-[@ClaytonSiby](https://repl.it/@ClaytonSiby/bubblesortruby#bubble_sort.rb ) [@RNtaate](https://repl.it/@RNtaate/bubblesortruby#bubble_sort.rb)
+[![Run on Repl.it](https://repl.it/badge/github/RNtaate/Enumerables)](https://repl.it/github/RNtaate/Enumerables) 
 
 ## Getting Started
 To get a local copy of this repository, please run the following commands on your terminal
