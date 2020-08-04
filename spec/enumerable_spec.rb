@@ -4,6 +4,7 @@ describe Enumerable do
   let(:spec_num_array) { [*1..20] }
   let(:spec_range) { (1..20) }
   let(:spec_hash) { { a: 1, b: 2, c: 3, d: 4 } }    
+  let(:word_array) { %w{ a string very_long_string } }
   
   # my_each
   describe "#my_each" do
@@ -119,7 +120,18 @@ describe Enumerable do
   end
 
   # my_inject
+  describe '#my_inject' do
+    it 'returns the sum of all the values in an array' do
+      expect(spec_num_array.my_inject { |sum, val| sum + val }).to eql(210)
+    end
 
-  # mult_els, map_with_proc, map_with_proc_block
+    it 'behaves like the original when applied to a range' do
+      expect(spec_range.my_inject { |sum, val| sum + val }).to eql(spec_range.inject { |sum, val| sum + val })
+    end
+
+    it 'finds the longest string' do
+      expect(word_array.my_inject { |hold, compare| hold.length > compare.length ? hold : compare }).to eql('very_long_string')
+    end
+  end
 
 end
