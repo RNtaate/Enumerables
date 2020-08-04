@@ -1,4 +1,4 @@
-require '../enumerable.rb'
+require 'enumerable'
 
 describe Enumerable do
   let(:spec_num_array) { [*1..20] }
@@ -59,6 +59,11 @@ describe Enumerable do
   end
 
   # my_none
+  describe "#my_none?" do
+    it 'return false if any of the elements in the array is equal to true.' do
+      expect(spec_num_array.my_none? { |el| el.even? }).to eql(false)
+    end
+  end
 
   # my_any
 
