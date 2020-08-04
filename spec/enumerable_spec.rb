@@ -54,7 +54,7 @@ describe Enumerable do
       expect(spec_num_array.my_all? { |v| v < 21 } ).to eql(spec_num_array.all? { |v| v < 21 })
     end
 
-    it 'returns false if a value in the array doesn't satisfy the block condition' do
+    it 'returns false if a value in the array doesn\'t satisfy the block condition' do
       expect(spec_num_array.my_all? { |v| v < 10 } ).to eql(spec_num_array.all? { |v| v < 10 })
     end
   end
