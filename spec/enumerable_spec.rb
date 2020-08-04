@@ -63,13 +63,60 @@ describe Enumerable do
     it 'return false if any of the elements in the array is equal to true.' do
       expect(spec_num_array.my_none? { |el| el.even? }).to eql(false)
     end
+
+    it 'return false if any of the elements in the range is equal to true.' do
+      expect(spec_range.my_none? { |el| el.even? }).to eql(false)
+    end
+
+    it 'return false if any of the elements in the hash is equal to true.' do
+      expect(spec_hash.my_none? { |key, val| val > 2  }).to eql(false)
+    end
   end
 
   # my_any
+  describe "#my_any" do
+    it 'returns true if one value in the array is true.' do
+      expect(spec_num_array.my_any?(2)).to eql(true)
+    end
+
+    it 'returns true if one value in a range is true.' do
+      expect(spec_range.my_any?(2)).to eql(true)
+    end
+
+    it 'returns true if one key in the hash is true.' do
+      expect(spec_hash.my_any? { |key, val| key == :a }).to eql(true)
+    end
+  end
 
   # my_count
+  describe '#my_count' do
+    it 'counts the number of items in an array that match the given argument or block.' do
+      expect(spec_num_array.my_count(2)).to eql(1)
+    end
+
+    it 'counts the number of items in a range that match the given argument or block.' do
+      expect(spec_range.my_count { |el| el.even? }).to eql(10)
+    end
+
+    it 'counts the number of key value pairs in a hash that match the given argument or block.' do
+      expect(spec_hash.my_count { |key, val| key == :a }).to eql(1)
+    end
+  end
 
   # my_map
+  describe '#my_map' do
+    it 'iterates over every element in an array & performs an action on it. ' do
+      expect(spec_num_array.my_map { |el| el * 2 }).to eql(spec_num_array.map { |el| el * 2 })
+    end
+
+    it 'iterates over every element in a range & performs an action on it. ' do
+      expect(spec_range.my_map { |el| el * 2 }).to eql(spec_range.map { |el| el * 2 })
+    end
+
+    it 'iterates over every element in an hash & performs an action on the keys or values ' do
+      expect(spec_hash.my_map { |el, val| val * 2 }).to eql(spec_hash.map { |el, val| val * 2 })
+    end
+  end
 
   # my_inject
 
