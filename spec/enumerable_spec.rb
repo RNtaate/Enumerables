@@ -17,7 +17,7 @@ describe Enumerable do
     end
 
     it 'returns the same value as the original given a hash and a block' do
-      expect(spec_hash.my_each { |n| n + 2 }).to eql(spec_hash.each { |n| n + 2 })
+      expect(spec_hash.my_each { |_k, v| v + 2 }).to eql(spec_hash.each { |_k, v| v + 2 })
     end
   end
 
@@ -62,11 +62,11 @@ describe Enumerable do
   # my_none
   describe '#my_none?' do
     it 'return false if any of the elements in the array is equal to true.' do
-      expect(spec_num_array.my_none?(&:even?).to eql(false)
+      expect(spec_num_array.my_none?(&:even?)).to eql(false)
     end
 
     it 'return false if any of the elements in the range is equal to true.' do
-      expect(spec_range.my_none?(&:even?).to eql(false)
+      expect(spec_range.my_none?(&:even?)).to eql(false)
     end
 
     it 'return false if any of the elements in the hash is equal to true.' do
@@ -96,7 +96,7 @@ describe Enumerable do
     end
 
     it 'counts the number of items in a range that match the given argument or block.' do
-      expect(spec_range.my_count(&:even?).to eql(10)
+      expect(spec_range.my_count(&:even?)).to eql(10)
     end
 
     it 'counts the number of key value pairs in a hash that match the given argument or block.' do
