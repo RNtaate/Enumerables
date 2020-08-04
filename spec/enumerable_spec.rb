@@ -4,12 +4,12 @@ describe Enumerable do
   let(:spec_num_array) { [*1..20] }
   let(:spec_range) { (1..20) }
   let(:spec_hash) { { a: 1, b: 2, c: 3, d: 4 } }
-  let(:word_array) { %w{a string very_long_string} }
+  let(:word_array) { %w[a string very_long_string] }
   
   # my_each
   describe '#my_each' do
     it 'returns the same value as the original given an array and a block' do
-      expect(spec_num_array.my_each { |n| n + 2 }).to eql(spec_num_array.each { |n| n + 2 })
+      expect(spec_num_array.my_each { |n| + 2 }).to eql(spec_num_array.each { |n| + 2 })
     end
 
     it 'returns the same value as the original given a range and a block' do
@@ -36,11 +36,11 @@ describe Enumerable do
   # my_select
   describe '#my_select' do
     it 'returns the same value as the original given an array and a block' do
-      expect(spec_num_array.my_select { |v| v.even? }).to eql(spec_num_array.select { |v| v.even? })
+      expect(spec_num_array.my_select(&:even)).to eql(spec_num_array.select(&:even))
     end
 
     it 'returns the same value as the original given a range and a block' do
-      expect(spec_range.my_select { |v| v.even? }).to eql(spec_range.select { |v| v.even? })
+      expect(spec_range.my_select(&:even)).to eql(spec_range.select(&:even))
     end
 
     it 'returns the same value as the original given a hash and a block' do
