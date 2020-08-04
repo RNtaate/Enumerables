@@ -36,11 +36,11 @@ describe Enumerable do
   # my_select
   describe '#my_select' do
     it 'returns the same value as the original given an array and a block' do
-      expect(spec_num_array.my_select(&:even)).to eql(spec_num_array.select(&:even))
+      expect(spec_num_array.my_select(&:even?)).to eql(spec_num_array.select(&:even?))
     end
 
     it 'returns the same value as the original given a range and a block' do
-      expect(spec_range.my_select(&:even)).to eql(spec_range.select(&:even))
+      expect(spec_range.my_select(&:even?)).to eql(spec_range.select(&:even?))
     end
 
     it 'returns the same value as the original given a hash and a block' do
