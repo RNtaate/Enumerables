@@ -19,7 +19,7 @@ describe Enumerable do
     end
   end
 
-  # my_each_with_index
+  # my_each_with_index test 
   describe '#my_each_with_index' do
     it 'returns the same value as the original given an array and a block' do
       expect(spec_num_array.my_each_with_index { |a, b| a + b }).to eql(spec_num_array.each_with_index { |a, b| a + b })
