@@ -225,4 +225,74 @@ describe Enumerable do
       expect(range.my_any?(0)).to be false
     end
   end
+
+  describe '#my_none?' do
+    it 'returns true if all of the elements of the array are false and no block is given' do
+      expect([false, false, false].my_none?).to be true
+    end
+
+    it 'returns false if atleast one element of the array is not false or nil and no block is given' do
+      expect([false, nil, 'I am a string'].my_none?).to be false
+    end
+
+    it 'returns false if self is a not an empty hash and no block is given' do
+      expect(hash.my_none?).to be false
+    end
+
+    it 'returns true if self is an empty hash and no block is given' do
+      expect({}.my_none?).to be true
+    end
+
+    it 'returns false if self is a range and no block is given' do
+      expect(range.my_none?).to be false
+    end
+
+    it "returns true if self is an array and none of it's elements pass for the condition in a given block" do
+      expect(array.my_none?(&:zero?)).to be true
+    end
+
+    it "returns false if self is an array and any of it's elements pass the condition in a given block" do
+      expect(array.my_none?(&:even?)).to be false
+    end
+
+    it "returns true if self is a hash and none of it's elements pass for the condition in a given block" do
+      expect(hash.my_none? { |_key, num| num.zero? }).to be true
+    end
+
+    it "returns false if self is a hash and any of it's elements pass the condition in a given block" do
+      expect(hash.my_none? { |_key, num| num.even? }).to be false
+    end
+
+    it "returns true if self is a range and none of it's elements pass for the condition in a given block" do
+      expect(range.my_none?(&:zero?)).to be true
+    end
+
+    it "returns false if self is a range and atleast one of it's elements passes the condition in a given block" do
+      expect(range.my_none?(&:even?)).to be false
+    end
+
+    it 'returns false if self is an array and all elements match specified element given as an argument' do
+      expect(array.my_none?(1)).to be false
+    end
+
+    it 'returns true if self is an array and none of the elements match the given argument' do
+      expect(array.my_none?(0)).to be true
+    end
+
+    it 'returns true if self is a hash and an argument is given that matches none of elements' do
+      expect(hash.my_none?(0)).to be true
+    end
+
+    it 'returns true if self is an empty hash and the argument given is a Hash' do
+      expect({}.my_none?(Hash)).to be true
+    end
+
+    it 'returns false if self is a range of 1 number that matches the given argument' do
+      expect((1..1).my_none?(1)).to be false
+    end
+
+    it 'returns true if self is a range and the argument does not match any of the range numbers' do
+      expect(range.my_none?(0)).to be true
+    end
+  end
 end
