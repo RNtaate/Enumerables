@@ -143,7 +143,7 @@ describe Enumerable do
       expect(hash.my_all?(1)).to be false
     end
 
-    it "returns true if self is an empty hash and the argument given is Hash" do
+    it "returns true if self is an empty hash and the argument given is a Hash" do
       expect({}.my_all?(Hash)).to be true
     end
 
@@ -153,6 +153,80 @@ describe Enumerable do
 
     it "returns false if self is a range and the argument given does not match all of the numbers that the range generates" do
       expect(range.my_all?(1)).to be false
+    end
+  end
+
+  describe "#my_any?" do
+    it "returns true if any element of the array that my_any? is called on is true and no block is given" do
+      expect(array.my_any?).to be true
+    end
+
+    it "returns false if all elements of the array that my_any? is called on are false or nil and no block is given" do
+      expect([false, nil].my_any?).to be false
+    end
+
+    it "returns true if self is an empty array and no block is given" do
+      expect([].my_any?).to be false
+    end
+
+    it "returns true if self is not an empty hash and no block is given" do
+      expect(hash.my_any?).to be true
+    end
+
+    it "return false if self is an empty hash and no block is given" do
+      expect({}.my_any?).to be false
+    end
+
+    it "returns true if self is a range and no block is given" do
+      expect(range.my_any?).to be true
+    end
+
+    it "returns true if self is an array and any of it's elements pass for the condition in a given block" do
+      expect(array.my_any?{|num| num.positive?}).to be true
+    end
+
+    it "returns false if self is an array and all of it's elements fail the condition in a given block" do
+      expect(array.my_any?{|num| num.zero?}).to be false
+    end
+
+    it "returns true if self is a hash and any of it's elements pass for the condition in a given block" do
+      expect(hash.my_any?{|key, num| num.positive?}).to be true
+    end
+
+    it "returns false if self is a hash and all of it's elements fail the condition in a given block" do
+      expect(hash.my_any?{|key, num| num.zero?}).to be false
+    end
+
+    it "returns true if self is a range and any of it's elements pass for the condition in a given block" do
+      expect(range.my_any?{|num| num == 2}).to be true
+    end
+
+    it "returns false if self is a range and all of it's elements fail the condition in a given block" do
+      
+      expect(range.my_any?{|num| num.zero?}).to be false
+    end
+
+    it "returns true if self is an array and any of it's elements match specified element given as an argument" do
+      
+      expect(array.my_any?(1)).to be true
+    end
+
+    it "returns false if self is an array and all of it's elements do not match the specified element given as an argument" do
+      
+      expect(array.my_any?(10)).to be false
+    end
+
+    it "returns false if self is a hash and an argument is given" do
+      expect(hash.my_any?(1)).to be false
+    end
+
+    it "returns true if self is a range containing a number that matches the given argument" do
+      
+      expect(range.my_any?(1)).to be true
+    end
+
+    it "returns false if self is a range and the argument given does not match any of the numbers that the range generates" do
+      expect(range.my_any?(0)).to be false
     end
   end
 end
