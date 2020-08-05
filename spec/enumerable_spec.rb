@@ -114,5 +114,45 @@ describe Enumerable do
     it "returns false if self is an array and atleast one of it's elements fails the condition in a given block" do
       expect(array.my_all?{|num| num.even?}).to be false
     end
+
+    it "returns true if self is a hash and all it's elements pass for the condition in a given block" do
+      expect(hash.my_all?{|key, num| num.positive?}).to be true
+    end
+
+    it "returns false if self is a hash and atleast one of it's elements fails the condition in a given block" do
+      expect(hash.my_all?{|key, num| num.even?}).to be false
+    end
+
+    it "returns true if self is a range and all it's elements pass for the condition in a given block" do
+      expect(range.my_all?{|num| num.positive?}).to be true
+    end
+
+    it "returns false if self is a range and atleast one of it's elements fails the condition in a given block" do
+      expect(range.my_all?{|num| num.even?}).to be false
+    end
+
+    it "returns true if self is an array and all elements match specified element given as an argument" do
+      expect([1,1,1,1].my_all?(1)).to be true
+    end
+
+    it "returns false if self is an array and atleast one of the elements do not match the specified element given as an argument" do
+      expect(array.my_all?(1)).to be false
+    end
+
+    it "returns false if self is a hash and an argument is given that doesn't match all of elements" do
+      expect(hash.my_all?(1)).to be false
+    end
+
+    it "returns true if self is an empty hash and the argument given is Hash" do
+      expect({}.my_all?(Hash)).to be true
+    end
+
+    it "returns true if self is a range of 1 number that matches the given argument" do
+      expect((1..1).my_all?(1)).to be true
+    end
+
+    it "returns false if self is a range and the argument given does not match all of the numbers that the range generates" do
+      expect(range.my_all?(1)).to be false
+    end
   end
 end
