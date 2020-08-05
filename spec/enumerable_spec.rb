@@ -295,4 +295,42 @@ describe Enumerable do
       expect(range.my_none?(0)).to be true
     end
   end
+
+  describe "#my_count" do
+    it "returns the length of calling array when no block is given." do
+      expect(array.my_count).to eql(3)
+    end
+
+    it "returns the size of calling hash when no block is given" do
+      expect(hash.my_count).to eql(3)
+    end
+
+    it "returns the size of calling range when no block is given" do
+      expect(range.my_count).to eql(10)
+    end
+
+    it "returns the amount of elements in calling array that pass a condition given in a block" do
+      expect(array.my_count{|num| num.even?}).to eql(1)
+    end
+
+    it "returns the amount of elements in calling hash that pass a condition given in a block" do
+      expect(hash.my_count{|key, val| val == 1}).to eql(2)
+    end
+
+    it "returns the amount of elements in calling range that pass a condition given in a block" do
+      expect(range.my_count{|num| num.odd?}).to eql(5)
+    end
+
+    it "returns the amount of elements in calling array that match a given argument" do
+      expect(array.my_count(2)).to eql(1)
+    end
+
+    it "returns the amount of elements in calling hash that match a given argument" do
+      expect(hash.my_count(1)).to eql(0)
+    end
+
+    it "returns the amount of elements in calling range that match a given argument" do
+      expect(range.my_count(3)).to eql(1)
+    end
+  end
 end
