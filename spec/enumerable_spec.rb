@@ -89,4 +89,30 @@ describe Enumerable do
       expect(range.my_select { |num| num < 5 }).to eql([1, 2, 3, 4])
     end
   end
+
+  describe "#my_all?" do
+    it "returns true if all elements of the array that my_all? is called on are true and no block is given" do
+      expect(array.my_all?).to be true
+    end
+
+    it "returns false if atleast one element of the array that my_all? is called on is false or nil and no block is given" do
+      expect([false, nil].my_all?).to be false
+    end
+
+    it "returns true if self is a hash and no block is given" do
+      expect(hash.my_all?).to be true
+    end
+
+    it "returns true if self is a range and no block is given" do
+      expect(range.my_all?).to be true
+    end
+
+    it "returns true if self is an array and all it's elements pass for the condition in a given block" do
+      expect(array.my_all?{|num| num.positive?}).to be true
+    end
+
+    it "returns false if self is an array and atleast one of it's elements fails the condition in a given block" do
+      expect(array.my_all?{|num| num.even?}).to be false
+    end
+  end
 end
