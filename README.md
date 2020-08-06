@@ -26,7 +26,7 @@ $ git clone https://github.com/RNtaate/Enumerables.git
 To test the code, run `rspec --format doc` from root of the folder using terminal.
 > Rspec is used for the test.
 
-To install rspec if you do not already have rspec run the bash command bellow
+To install Rspec if you do not already have Rspec installed run the bash command bellow
 ~~~bash
 $ gem install rspec
 ~~~
