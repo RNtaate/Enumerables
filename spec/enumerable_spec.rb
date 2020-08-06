@@ -296,41 +296,79 @@ describe Enumerable do
     end
   end
 
-  describe "#my_count" do
-    it "returns the length of calling array when no block is given." do
+  describe '#my_count' do
+    it 'returns the length of calling array when no block is given.' do
       expect(array.my_count).to eql(3)
     end
 
-    it "returns the size of calling hash when no block is given" do
+    it 'returns the size of calling hash when no block is given' do
       expect(hash.my_count).to eql(3)
     end
 
-    it "returns the size of calling range when no block is given" do
+    it 'returns the size of calling range when no block is given' do
       expect(range.my_count).to eql(10)
     end
 
-    it "returns the amount of elements in calling array that pass a condition given in a block" do
-      expect(array.my_count{|num| num.even?}).to eql(1)
+    it 'returns the amount of elements in calling array that pass a condition given in a block' do
+      expect(array.my_count(&:even?)).to eql(1)
     end
 
-    it "returns the amount of elements in calling hash that pass a condition given in a block" do
-      expect(hash.my_count{|key, val| val == 1}).to eql(2)
+    it 'returns the amount of elements in calling hash that pass a condition given in a block' do
+      expect(hash.my_count { |_key, val| val == 1 }).to eql(2)
     end
 
-    it "returns the amount of elements in calling range that pass a condition given in a block" do
-      expect(range.my_count{|num| num.odd?}).to eql(5)
+    it 'returns the amount of elements in calling range that pass a condition given in a block' do
+      expect(range.my_count(&:odd?)).to eql(5)
     end
 
-    it "returns the amount of elements in calling array that match a given argument" do
+    it 'returns the amount of elements in calling array that match a given argument' do
       expect(array.my_count(2)).to eql(1)
     end
 
-    it "returns the amount of elements in calling hash that match a given argument" do
+    it 'returns the amount of elements in calling hash that match a given argument' do
       expect(hash.my_count(1)).to eql(0)
     end
 
-    it "returns the amount of elements in calling range that match a given argument" do
+    it 'returns the amount of elements in calling range that match a given argument' do
       expect(range.my_count(3)).to eql(1)
+    end
+  end
+
+  describe '#my_map' do
+    it 'returns Enumerator when method is called on an array and no block or proc argument is given' do
+      expect(array.my_map).to be_an(Enumerator)
+    end
+
+    it 'returns Enumerator when method is called on a hash and no block or proc argument is given' do
+      expect(hash.my_map).to be_an(Enumerator)
+    end
+
+    it 'returns Enumerator when method is called on a range and no block or proc argument is given' do
+      expect(range.my_map).to be_an(Enumerator)
+    end
+
+    it 'when called on an array returns a new array with new items equal to specified paramaters of given block' do
+      expect(array.my_map { |num| num * 2 }).to eql([2, 4, 6])
+    end
+
+    it 'when called on a hash returns a new array with new items equal to specified paramaters of given block' do
+      expect(hash.my_map { |_key, num| num * 2 }).to eql([2, 2, 4])
+    end
+
+    it 'when called on a range returns a new array with new items equal to specified paramaters of given block' do
+      expect(range.my_map { |num| num * 2 }).to eql([2, 4, 6, 8, 10, 12, 14, 16, 18, 20])
+    end
+
+    it 'when called on an array returns a new array with items equal to paramaters of given proc as argument' do
+      expect(array.my_map(pr)).to eql([1, 2, 3])
+    end
+
+    it 'when called on a hash returns a new nested array with items equal to paramaters of given proc as argument' do
+      expect(hash.my_map(pr)).to eql([[:one, 1], [:two, 1], [:three, 2]])
+    end
+
+    it 'when called on a range returns a new array with items equal to paramaters of given proc as argument' do
+      expect(range.my_map(pr)).to eql([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     end
   end
 end
