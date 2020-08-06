@@ -186,8 +186,7 @@ describe Enumerable do
 
     it "returns false if self is an array and all of it's elements fail the condition in a given block" do
       expect(array.my_any?(&:zero?)).to be false
-    end  umerable.rb:204:1: W: Lint/UselessAssignment: Useless assignment to variable - array.
-    array = [1, 2, 3, 4]
+    end
 
     it "returns true if self is a hash and any of it's elements pass for the condition in a given block" do
       expect(hash.my_any? { |_key, num| num.positive? }).to be true
@@ -424,5 +423,11 @@ describe Enumerable do
     it 'returns an accumulated value of a range when given a value and a symbol as arguments and no block is given' do
       expect(range.my_inject(2, :+)).to eql(57)
     end
+  end
+end
+
+describe '#multiply_els' do
+  it 'returns a multiplication based accumulated value of the argument given' do
+    expect(multiply_els([1, 2, 3])).to eql(6)
   end
 end
