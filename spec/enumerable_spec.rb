@@ -5,7 +5,6 @@ describe Enumerable do
   let(:array) { [1, 2, 3] }
   let(:hash) { { one: 1, two: 1, three: 2 } }
   let(:range) { (1..10) }
-
   let(:pr) do
     proc do |num|
       num
@@ -187,7 +186,8 @@ describe Enumerable do
 
     it "returns false if self is an array and all of it's elements fail the condition in a given block" do
       expect(array.my_any?(&:zero?)).to be false
-    end
+    end  umerable.rb:204:1: W: Lint/UselessAssignment: Useless assignment to variable - array.
+    array = [1, 2, 3, 4]
 
     it "returns true if self is a hash and any of it's elements pass for the condition in a given block" do
       expect(hash.my_any? { |_key, num| num.positive? }).to be true
@@ -369,6 +369,60 @@ describe Enumerable do
 
     it 'when called on a range returns a new array with items equal to paramaters of given proc as argument' do
       expect(range.my_map(pr)).to eql([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    end
+  end
+
+  describe '#my_inject' do
+    it 'returns the first array element when no argument is given and block contains one variable' do
+      expect(array.my_inject { |num| num }).to eql(1)
+    end
+
+    it 'returns the first hash element as an array when no argument is given and block contains one variable' do
+      expect(hash.my_inject { |num| num }).to eql([:one, 1])
+    end
+
+    it 'returns the first range element when no argument is given and block contains one variable' do
+      expect(range.my_inject { |num| num }).to eql(1)
+    end
+
+    it 'returns the argument value when called on an array and block contains one variable' do
+      expect(array.my_inject(2) { |num| num }).to eql(2)
+    end
+
+    it 'returns the argument value when called on a range and block contains one variable' do
+      expect(array.my_inject(2) { |num| num }).to eql(2)
+    end
+
+    it 'returns an accumulated value of an array based on provided parameters in a block and no argument is given' do
+      expect(array.my_inject { |sum, num| sum + num }).to eql(6)
+    end
+
+    it 'returns an accumulated value of a range based on provided parameters in a block and no argument is given' do
+      expect(range.my_inject { |sum, num| sum + num }).to eql(55)
+    end
+
+    it 'returns an accumulated value of an array based on provided argument value and parameters in a block' do
+      expect(array.my_inject(2) { |sum, num| sum + num }).to eql(8)
+    end
+
+    it 'returns an accumulated value of a range based on provided argument value and parameters in a block' do
+      expect(range.my_inject(2) { |sum, num| sum + num }).to eql(57)
+    end
+
+    it 'returns an accumulated value of an array based on provided argument symbol and no block is given' do
+      expect(array.my_inject(:*)).to eql(6)
+    end
+
+    it 'returns an accumulated value of a range based on provided argument symbol and no block is given' do
+      expect(range.my_inject(:+)).to eql(55)
+    end
+
+    it 'returns an accumulated value of an array when given a value and a symbol as arguments and no block is given' do
+      expect(array.my_inject(2, :*)).to eql(12)
+    end
+
+    it 'returns an accumulated value of a range when given a value and a symbol as arguments and no block is given' do
+      expect(range.my_inject(2, :+)).to eql(57)
     end
   end
 end
