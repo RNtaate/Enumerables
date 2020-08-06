@@ -21,6 +21,17 @@ $ cd <folder>
 $ git clone https://github.com/RNtaate/Enumerables.git
 ```
 
+#### Testing
+
+To test the code, run `rspec --format doc` from root of the folder using terminal.
+> Rspec is used for the test.
+
+To install rspec if you do not already have rspec run the bash command bellow
+~~~bash
+$ gem install rspec
+~~~
+
+
 ## Authors
 
 👤 **Clayton Siby**
@@ -28,6 +39,11 @@ $ git clone https://github.com/RNtaate/Enumerables.git
 - Github: [@ClaytonSiby](https://github.com/ClaytonSiby)
 - Twitter: [@ClaytonSiby](https://twitter.com/ClaytonSiby)
 - Linkedin: [Clayton Siby](https://www.linkedin.com/in/clayton-siby-48a8a0183/)
+
+👤 **Jacob Rees**
+
+- Github: [jacobrees](https://github.com/jacobrees)
+- Linkedin: [jacob-rees-a6507b1a6](https://www.linkedin.com/in/jacob-rees-a6507b1a6/)
 
 👤 **Roy Ntaate**
 
